@@ -1,160 +1,340 @@
-# DIGITAL COOKBOOK 
+# Español
+# 🍽 Recetario Digital
+# Proyecto de reingeniería de software: modernización de una aplicación web con Flask y MongoDB
 
-Digital Cookbook is a responsive web application that allows users to create, give feedback on, update, delete and read cooking recipes.
- 
-## UX
+## Descripción
 
-### User Stories
+Recetario Digital es una aplicación web *responsive* (adaptable) desarrollada con Flask y MongoDB que permite a los usuarios crear, editar, eliminar, buscar y visualizar recetas de cocina.
 
-Before beginning development on the site, several user stories were created to determine who a visitor to the site could be and what they might want from the site:
+Este proyecto fue modernizado como parte de un curso de **Reingeniería de Software**. El objetivo era mejorar la arquitectura, la mantenibilidad y la experiencia de usuario de la aplicación, preservando al mismo tiempo su funcionalidad original.
 
-- "As a user I want to be able to search for recipes and add my own recipes for others to try under my own name."
+---
 
-- "As a user to the website, I want to be able to quickly browse a selection of recipes and let the author know what I thought."
+# Reingeniería de Software
 
-### Design
+## Arquitectura Original (Legado)
 
-The application utilises a minimal responsive design based upon a heavily modified version of the [creative bootstrap theme](https://startbootstrap.com/template-overviews/creative/), built around centered content on a background image. 
+La versión original de la aplicación seguía una arquitectura monolítica.
 
-The key focus of the apps design was readability and simplicity. The text was designed to stand out, through the choice of colors in the content and the background image.
+Características:
+
+- La mayor parte de la lógica de la aplicación estaba contenida en un único archivo `app.py`.
+- Las variables de entorno estaban configuradas directamente dentro de la aplicación.
+- Varias funciones contenían código duplicado.
+- Las operaciones CRUD estaban fuertemente acopladas a la lógica de la aplicación.
+- La interfaz ofrecía una navegación básica y una usabilidad limitada.
+
+---
+
+## Problemas Identificados
+
+Durante el análisis se identificaron los siguientes problemas:
+
+- Estructura de aplicación monolítica.
+- Baja reutilización de código.
+- Configuración mezclada con la lógica de negocio.
+- Mantenimiento y escalabilidad difíciles.
+- Operaciones de base de datos repetidas.
+- Votación ilimitada por parte de los usuarios.
+- Interfaz de usuario básica.
+
+---
+
+## Mejoras Implementadas
+
+Durante el proceso de modernización se implementaron las siguientes mejoras:
+
+- Variables de entorno centralizadas en `config.py`.
+- Inicialización de MongoDB trasladada a `extensions.py`.
+- Funciones auxiliares reutilizables trasladadas a `utils.py`.
+- Inicio de la modularización de rutas mediante *Blueprints*.
+- Funciones CRUD refactorizadas para una mejor mantenibilidad.
+- Sistema de votación actualizado para permitir un solo voto por usuario.
+- Sección "Mis recetas" corregida para mostrar solo las recetas creadas por el usuario actual.
+- Navegación mejorada con una opción de cierre de sesión (*Logout*).
+- Interfaz de usuario mejorada utilizando Bootstrap y optimizaciones de CSS.
+
+---
+
+## Nueva Estructura del Proyecto
+
+```
+digital-cookbook/
+│
+├── app.py
+├── config.py
+├── extensions.py
+├── utils.py
+├── forms.py
+├── routes/
+│   └── recipes.py
+├── templates/
+├── static/
+├── data/
+└── README.md
+```
+
+---
+
+## Funcionalidades
+
+- Explorar recetas.
+- Buscar recetas.
+- Añadir recetas.
+- Editar recetas.
+- Eliminar recetas.
+- Votar recetas.
+- Ver recetas personales. - Cerrar sesión y volver a la página de inicio.
+
+---
+
+## Tecnologías utilizadas
+
+- Python
+- Flask
+- MongoDB Atlas
+- Flask-PyMongo
+- HTML5
+- CSS3
+- Bootstrap
+- JavaScript
+- jQuery
+
+---
+
+## Instalación
+
+1. Clona el repositorio.
+
+```bash
+git clone <repository_url>
+```
+
+2. Crea un entorno virtual.
+
+```bash
+python -m venv venv
+```
+
+3. Activa el entorno virtual.
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+4. Instala las dependencias.
+
+```bash
+pip install -r requirements.txt
+```
+
+5. Crea un archivo `.env` con el siguiente contenido:
+
+```env
+SECRET=your_secret_key
+DBNAME=your_database_name
+URI=your_mongodb_connection_string
+```
+
+6. Ejecuta la aplicación.
+
+```bash
+python app.py
+```
+
+---
+
+## Pruebas
+
+Se realizaron pruebas manuales en los siguientes módulos:
+
+- Página de inicio
+- Ver recetas
+- Mis recetas
+- Búsqueda
+- Añadir receta
+- Editar receta
+- Eliminar receta
+- Sistema de votación
+- Cerrar sesión
+
+---
+
+## Agradecimientos
+
+El diseño original del proyecto se basó en el tema "Creative Bootstrap" de Start Bootstrap.
+
+Esta versión incluye mejoras arquitectónicas y de interfaz desarrolladas como parte de un proyecto de reingeniería de software.
+
+
+# English
+# 🍽 Digital Cookbook
+
+## Description
+
+Digital Cookbook is a responsive web application developed with Flask and MongoDB that allows users to create, edit, delete, search and view cooking recipes.
+
+This project was modernized as part of a **Software Reengineering** course. The objective was to improve the application's architecture, maintainability and user experience while preserving its original functionality.
+
+---
+
+# Software Reengineering
+
+## Original Architecture (Legacy)
+
+The original version of the application followed a monolithic architecture.
+
+Characteristics:
+
+- Most of the application logic was contained in a single `app.py` file.
+- Environment variables were configured directly inside the application.
+- Several functions contained repeated code.
+- CRUD operations were tightly coupled with the application logic.
+- The interface provided basic navigation and limited usability.
+
+---
+
+## Problems Identified
+
+The following issues were identified during the analysis:
+
+- Monolithic application structure.
+- Low code reusability.
+- Configuration mixed with business logic.
+- Difficult maintenance and scalability.
+- Repeated database operations.
+- Unlimited voting by users.
+- Basic user interface.
+
+---
+
+## Improvements Implemented
+
+The following improvements were implemented during the modernization process:
+
+- Environment variables centralized in `config.py`.
+- MongoDB initialization moved to `extensions.py`.
+- Reusable helper functions moved to `utils.py`.
+- Beginning of route modularization using Blueprints.
+- CRUD functions refactored for better maintainability.
+- Voting system updated to allow only one vote per user.
+- "My Recipes" section corrected to display only recipes created by the current user.
+- Navigation improved with a Logout option.
+- User interface enhanced using Bootstrap and CSS improvements.
+
+---
+
+## New Project Structure
+
+```
+digital-cookbook/
+│
+├── app.py
+├── config.py
+├── extensions.py
+├── utils.py
+├── forms.py
+├── routes/
+│   └── recipes.py
+├── templates/
+├── static/
+├── data/
+└── README.md
+```
+
+---
 
 ## Features
 
-The application has several features:
+- Browse recipes.
+- Search recipes.
+- Add recipes.
+- Edit recipes.
+- Delete recipes.
+- Vote recipes.
+- View personal recipes.
+- Logout and return to the home page.
 
-1. Users can browse the recipes in the database manually, through search or by attribute.
-2. Users can add their own recipes to the database.
-3. Users can edit or delete existing recipes.
-4. Users can upvote or downvote recipes.
-5. Users can enter their username and view the recipes they have added.
+---
 
 ## Technologies Used
 
-- [HTML](https://www.w3.org/)
-    - The project uses **HTML** to create the website.
+- Python
+- Flask
+- MongoDB Atlas
+- Flask-PyMongo
+- HTML5
+- CSS3
+- Bootstrap
+- JavaScript
+- jQuery
 
-- [CSS](https://www.w3.org/)
-    - The project uses **CSS** to style the website.
-
-- [Bootstrap](https://getbootstrap.com/docs/3.3/)
-    - The project uses **Bootstrap** to style the site and user experience.
-
-- [JavaScript](https://developer.mozilla.org/bm/docs/Web/JavaScript)
-    - The project uses **JavaScript** to use Bootstrap functions.
-
-- [JQuery](https://jquery.com/)
-    - The project uses **JQuery** to manipulate the DOM with Bootstrap functionality.
-
-- [Python](https://www.python.org/)
-    - The project uses **Python** to write the sites logic.
-
-- [Flask](http://flask.pocoo.org/)
-    - The project uses **Flask** for the apps backend (server, load jinja2 templates etc.). 
-
-- [MongoDB](https://www.mongodb.com/)
-    - The project uses **MongoDB** as the apps database. 
-
-## Testing
-
-In the development of this application testing consisted of both automated tests using the python unittest package and manual testing of views.
-
-### Automated Testing
-
- To run tests, in the CLI enter:
-```
-$ python -m unittest discover
-``` 
-
-### Manual Testing
-
-Due to using flask_pymongo, I ran into some issues when trying to write automated tests for the projects views. As a result, testing on the views was conducted manually instead.
-
-1. Home Page
-    1. Go to the home page of the project.
-    2. Verify the page loads with the index.html template.
-
-2. Recipes Page
-    1. Go to the home page of the project.
-    2. Enter a username and click enter.
-    3. Verify the view recipes page loads with the recipes.html template.
-
-3. My Recipes Page
-    1. Go to the home page of the project.
-    2. Enter a username and click enter.
-    3. Click 'My Recipes' in the navbar
-    4. Verify the My Recipes page loads with the results.html template or the noresults.html if there are no recipes associated with the username.
-
-4. View Recipe Page
-    1. Go to the home page of the project.
-    2. Enter a username and click enter.
-    3. Click 'View Recipe' button from a recipe in the table of recipes.
-    4. Verify the View Recipe page loads with the view_recipe.html template.
-
-5. Edit Recipe Page
-    1. Go to the home page of the project.
-    2. Enter a username and click enter.
-    3. Click 'Edit Recipe' button from a recipe in the table of recipes.
-    4. Verify the Edit Recipe page loads with the edit_recipe.html template.
-
-6. Delete Recipe Page
-    1. Go to the home page of the project.
-    2. Enter a username and click enter.
-    3. Click 'Delete Recipe' button from a recipe in the table of recipes.
-    4. Verify the Delete Recipe page loads with the delete_recipe.html template.
-
-7. Add Recipe Page
-    1. Go to the home page of the project.
-    2. Enter a username and click enter.
-    3. Click 'Add Recipes' in the navbar
-    4. Verify the Add Recipe page loads with the add_recipe.html template.
-
-8. Search Page
-    1. Go to the home page of the project.
-    2. Enter a username and click enter.
-    3. Click 'Search' in the navbar
-    4. Verify the Search page loads with the search.html template.
-
-9. Results Page
-    1. Go to the home page of the project.
-    2. Enter a username and click enter.
-    3. Click 'Search' in the navbar
-    4. In the search page, search a term.
-    5. Verify the results page loads with the results.html template or the noresults.html if there are no recipes associated with the search term.
-
-## Planning
-
-### Database Schema
-
-The database schema for the app can be found in the file Digital Cookbook_ Database Schema included in this repository.
-
-A MongoDB based NoSQL database was chosen to keep the database schema as simple possible. When drawing up the schema, the aim was to keep the most relevent fields while ensuring the user didn't feel restricted. The other major consideration was the data types, these were carefully selected in order to make accessing the values as easy as possible for CRUD functions while still being dynamic. 
-
-For example, as it is impossible to predict how many ingredients, instructions or allergens a recipe could have, a list format made the most sense from a 'create' perspective, this too made sense for 'update' operations as a list can be lengthened or shortened easily. Lastly a list also works well with 'read' operations as the individual indices of a list can be searched by the user.
-
-Finally there were smaller considerations such as readability taken into account. For example, a recipeID of '2' is a lot easier to read/remember than an _id of '5af74281f36d280cecd216c3' in a URL bar!
-
-### Preliminary Planning Document
-
-The preliminary planning conducted before development began (including user stories, outline of functionality, site map etc.) can be found in the repository under the name Digital Cookbook_Preliminary Planning.pdf.
-
-## Deployment
-
-This project was deployed to Heroku. Inside Heroku's config vars the DBNAME, IP, PORT, SECRET (secret key) and URI (MongoDB uri) were set. 
-
-The project can be viewed at: <https://online-cookbook-project.herokuapp.com/>
+---
 
 ## Installation
 
-1. Ensure Python3, pip and Virtualenv are installed.
-2. Clone repository.
-4. Go to the repository folder.
-5. Setup the virtualenv instance for the project and activate the virtualenv instance. 
-7. Install required packages from requirements.txt. 
-8. Set DBNAME (name of MongoDB database), SECRET (secret key) and URI (MongoDB URI) environmental variables.
-8. Run run.py .
+1. Clone the repository.
 
-## Credits
+```bash
+git clone <repository_url>
+```
 
-### Acknowledgements
+2. Create a virtual environment.
 
-- The projects design is based on a heavily modified version of the [creative bootstrap theme](https://startbootstrap.com/template-overviews/creative/)
+```bash
+python -m venv venv
+```
+
+3. Activate the virtual environment.
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+4. Install dependencies.
+
+```bash
+pip install -r requirements.txt
+```
+
+5. Create a `.env` file containing:
+
+```env
+SECRET=your_secret_key
+DBNAME=your_database_name
+URI=your_mongodb_connection_string
+```
+
+6. Run the application.
+
+```bash
+python app.py
+```
+
+---
+
+## Testing
+
+Manual testing was performed on the following modules:
+
+- Home page
+- View Recipes
+- My Recipes
+- Search
+- Add Recipe
+- Edit Recipe
+- Delete Recipe
+- Voting system
+- Logout
+
+---
+
+## Acknowledgements
+
+The original project design was based on the Creative Bootstrap Theme by Start Bootstrap.
+
+This version includes architectural improvements and interface enhancements developed as part of a Software Reengineering project.

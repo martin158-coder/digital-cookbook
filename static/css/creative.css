@@ -338,3 +338,86 @@ header.masthead p {
     font-size: 4rem;
   }
 }
+
+
+/* ==========================================
+   Recipe Page
+========================================== */
+
+.recipe-card{
+    background: rgba(0,0,0,.55);
+    padding:40px;
+    border-radius:20px;
+    backdrop-filter:blur(6px);
+    box-shadow:0 8px 25px rgba(0,0,0,.35);
+}
+
+.recipe-card h1{
+    color:white;
+    font-weight:bold;
+}
+
+.recipe-card h4{
+    margin-top:35px;
+    padding-bottom:10px;
+    border-bottom:1px solid rgba(255,255,255,.2);
+}
+
+.recipe-card li{
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+
+/*====================================
+        RECIPES TABLE
+====================================*/
+
+.table{
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.table thead th{
+
+    background:#343a40;
+
+    color:white;
+
+    border:none;
+
+}
+
+.table tbody tr{
+
+    transition:.2s;
+
+}
+
+.table tbody tr:hover{
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.table td{
+
+    vertical-align:middle;
+
+}
+
+.table .btn{
+    white-space: nowrap;
+    padding: .25rem .6rem;
+    font-size: .85rem;
+}
+
+.navbar-text{
+
+    color:white !important;
+
+    font-weight:600;
+
+    margin-right:25px;
+
+}

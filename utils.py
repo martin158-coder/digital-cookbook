@@ -97,4 +97,5 @@ def get_recipe_form_data():
 
 
 def redirect_to_recipes(username):
-    return redirect(url_for("recipes", username=username, limit=10, offset=0))
+    return redirect(
+    url_for("recipes.recipes", username=username, limit=10, offset=0))
